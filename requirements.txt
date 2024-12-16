@@ -1,7 +1,6 @@
 streamlit
 pandas
 numpy
-string
 nltk
 Sastrawi
 scikit-learn
