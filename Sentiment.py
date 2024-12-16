@@ -17,9 +17,19 @@ from tensorflow.keras.layers import Dense, Dropout
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import os
 
+nltk_data_dir = '/home/appuser/nltk_data'
+nltk.data.path.append(nltk_data_dir)
+
+def download_if_not_exists(package):
+    try:
+        nltk.data.find(f'tokenizers/{package}')
+        print(f"'{package}' already exists.")
+    except LookupError:
+        nltk.download(package, download_dir=nltk_data_dir)
+
 # Download resources
-nltk.download('punkt')
-nltk.download('vader_lexicon')
+download_if_not_exists('punkt')
+download_if_not_exists('vader_lexicon')
 
 # Inisialisasi analisis sentimen VADER
 sid = SentimentIntensityAnalyzer()
@@ -61,7 +71,6 @@ def save_to_local(dataframe, original_filename):
     directory = "C:/Users/Miftahul Huda N/Komunitas Maribelajar Indonesia/CP7 - 04 - Harmoni - Documents/General/DataSet/"  # Pastikan path ini benar
     if not os.path.exists(directory):  # Jika folder belum ada, buat folder tersebut
         os.makedirs(directory)
-    # Buat nama file berdasarkan nama file asli dataset yang diunggah
     base_filename = os.path.splitext(original_filename)[0]
     filename = f"hasil_analisis_{base_filename}.csv"
     path = os.path.join(directory, filename)
@@ -168,8 +177,5 @@ if uploaded_file is not None:
                 st.success(f"Data berhasil disimpan di: {path}")
 
 # Tambahkan tombol untuk mengarahkan ke link Power BI
-if st.button("Lihat Laporan di Power BI"):
-    st.markdown("[Klik di sini untuk membuka laporan Power BI](https://app.powerbi.com/groups/me/reports/a7f6761d-41fb-41cc-96cf-3ca2c89db735/c60fca462db0cce0a67b?experience=power-bi)")
-
-else:
-    st.write("Harap unggah file CSV terlebih dahulu.")
+st.markdown("[Klik di sini untuk membuka laporan Power BI](https://app.powerbi.com/groups/me/reports/a7f6761d-41fb-41cc-96cf-3ca2c89db735/c60fca462db0cce0a67b?experience=power-bi) di tab baru.")
+st.markdown("Atau, **klik kanan** link tersebut dan pilih 'Open link in new tab' untuk membukanya di tab baru.")
