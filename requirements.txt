@@ -1,0 +1,12 @@
+streamlit
+pandas
+numpy
+re
+string
+nltk
+Sastrawi
+scikit-learn
+imbalanced-learn
+seaborn
+matplotlib
+tensorflow
